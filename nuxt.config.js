@@ -61,7 +61,7 @@ export default {
           user: {
             url: '/api/user/get',
             method: 'get',
-            propertyName: 'user',
+            propertyName: false,
           },
         },
         tokenRequired: false,

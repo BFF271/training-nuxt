@@ -7,11 +7,6 @@ const db = require('../db')
 
 let loadedUser
 
-router.get('/users/get', async (req, res) => {
-  const row = await db.query('SELECT * FROM "user"')
-  res.send(row)
-})
-
 router.get('/user/get', (req, res) => {
   res.status(200).json({
     user: loadedUser,

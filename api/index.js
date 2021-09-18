@@ -1,13 +1,15 @@
 const express = require('express')
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 
 const app = express()
 
 const users = require('./routes/users')
+const exercise = require('./routes/exercise')
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(users)
+app.use(exercise)
 
 module.exports = app
 
