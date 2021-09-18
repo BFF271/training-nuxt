@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'TitleFont';
+  src: url('fonts/BebasNeue-Regular.ttf') format('truetype')
+}
+
+@font-face {
+  font-family: 'ContentFont';
+  src: url('fonts/Roboto-BlackItalic.ttf') format('truetype')
+}
+
+body {
+  background-color:rgb(245, 249, 255);
+  font-family: 'ContentFont';
+}
+
+.title-text {
+  font-size: 2.2rem;
+  font-family: 'TitleFont';
+}
