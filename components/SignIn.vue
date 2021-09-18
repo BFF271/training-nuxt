@@ -2,7 +2,7 @@
   <div>
     <b-form v-if='show' @submit='onSubmit' @reset='onReset'>
       <b-form-group id='input-group-1' label='Username:' label-for='input-1'>
-        <b-form-input id='input-1' v-model='form.username' type='text' placeholder='Enter email' required>
+        <b-form-input id='input-1' v-model='form.username' type='text' placeholder='Enter username' required>
         </b-form-input>
       </b-form-group>
 
@@ -41,7 +41,7 @@ export default {
 
       if (res.status === 200) {
         location.reload()
-      } else if (res.status === 403) {
+      } else if (res.status === 204) {
         this.$swal('Invalid username/password!')
       } else {
         this.$swal('Error occurred!')
