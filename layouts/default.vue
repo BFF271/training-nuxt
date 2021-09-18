@@ -14,6 +14,6 @@
   position: relative;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  min-height: 90vh;
+  min-height: 100vh;
 }
 </style>

@@ -31,7 +31,7 @@ export default {
     async logout() {
       await this.$auth.logout().then(() => {
         if (location.pathname !== '/') {
-          this.$router.push('/')
+          this.$router.replace('/')
         }
         location.reload()
       })
