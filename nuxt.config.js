@@ -15,6 +15,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -40,6 +41,8 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    '@nuxtjs/auth-next',
+    'vue-sweetalert2/nuxt'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -57,5 +60,22 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  ssr: false,
+
+  loadingIndicator: {
+    name: 'circle',
+    color: 'grey',
+    background: 'Azure'
+  },
+
+  router: {
+    middleware: ['auth']
+  },
+  static: {
+    prefix: false
+  },
+  serverMiddleware: {
+    '/api': '~/api'
   }
 }
