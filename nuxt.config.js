@@ -45,6 +45,33 @@ export default {
     'vue-sweetalert2/nuxt'
   ],
 
+  auth: {
+    redirect: {
+      login: '/',
+      logout: '/',
+      home: '/'
+    },
+    strategies: {
+      local: {
+        endpoints:{
+          login:{
+            url: '/api/user/login',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout:false,
+          user:{
+            url: '/api/user/get',
+            method: 'get',
+            propertyName: 'user'
+          }
+        },
+        tokenRequired: false,
+        tokenType: ''
+      },
+    }
+  },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 
