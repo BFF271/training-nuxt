@@ -113,7 +113,6 @@ export default {
       }
 
       async function speakCommand() {
-        console.log(true)
         const text = document.getElementById('transcript').value
         switch (true) {
           case text.toLowerCase().includes('push up'):
@@ -175,7 +174,7 @@ export default {
 
       recognition.start()
 
-    },
+    }
   }
 }
 </script>

@@ -9,12 +9,13 @@ let loadedUser
 
 router.get('/user/get', (req, res) => {
   res.status(200).json({
-    user: loadedUser,
+    user: loadedUser
   })
 })
 
 router.post('/user/login', async (req, res) => {
   try {
+    console.log(req.body)
     const password = createHash('sha256')
       .update(req.body.password)
       .digest('hex')
@@ -25,7 +26,7 @@ router.post('/user/login', async (req, res) => {
     if (result.rowCount > 0) {
       loadedUser = result.rows[0]
       const token = jwt.sign({ id: loadedUser.id }, 'trainer', {
-        expiresIn: '7d',
+        expiresIn: '7d'
       })
       res.status(200).json({ token })
       res.send()

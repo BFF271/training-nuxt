@@ -289,7 +289,7 @@ export default {
     }
     ,
     jumpingJackCounter(poses) {
-      let a, b, c, d, e, f
+      let a, b, c, d, e, f, g
       let upperBodyReady = false
       let lowerBodyReady = false
       // Check Upper body
@@ -306,29 +306,26 @@ export default {
         upperBodyReady = true
       }
       // Check lower body
-      if (this.checkVisibility([poses[24], poses[23], poses[27]])) {
+      if (this.checkVisibility([poses[24], poses[23], poses[27]], poses[28])) {
         // check whether these three joint on screen
         d = 24
         e = 23
         f = 27
-        lowerBodyReady = true
-      } else if (this.checkVisibility([poses[23], poses[24], poses[28]])) {
-        d = 23
-        e = 24
-        f = 28
+        g = 28
         lowerBodyReady = true
       }
       // the stage will only be calculated if at least one side of lower body and upper body in camera
-      if (upperBodyReady && lowerBodyReady) {
+      if (upperBodyReady === true && lowerBodyReady === true) {
+        const midPoint = { x: (d.x + e.x) / 2, y: (d.y + e.y) / 2, z: (d.z + e.z) / 2 }
         if (
           this.calculateAngle(poses[a], poses[b], poses[c]) > 160 &&
-          this.calculateAngle(poses[d], poses[e], poses[f]) > 120
+          this.calculateAngle(poses[f], poses[midPoint], poses[g]) > 30
         ) {
           this.currentStage = 1
         }
         if (
           this.calculateAngle(poses[a], poses[b], poses[c]) < 60 &&
-          this.calculateAngle(poses[d], poses[e], poses[f]) < 100
+          this.calculateAngle(poses[f], poses[midPoint], poses[g]) < 20
         ) {
           if (this.currentStage === 1) {
             // if it switch from previous stage, its count increase

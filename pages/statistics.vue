@@ -138,7 +138,7 @@ export default {
           }
         }).then((res) => {
         console.log(res)
-        if (res.data !== null) {
+        if (res.data !== null && res.data !== '') {
           this.muscles = res.data
         }
       })
