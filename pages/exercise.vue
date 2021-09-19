@@ -27,7 +27,7 @@
       </b-alert>
     </b-row>
     <b-row class='d-flex justify-content-center'>
-      <b-col xl='7' lg>
+      <b-col xl='6' lg>
         <b-card v-if='login' class='mb-3'>
           <p>
             Your recommend daily calorie loss is
@@ -50,26 +50,28 @@
               ></span
               >
             </b-progress-bar>
-          </b-progress
-          >
+          </b-progress>
         </b-card>
         <Webcam @updateExerciseCount='updateActivity' />
       </b-col>
-      <b-col xl='5' class='pb-3' lg>
+      <b-col xl='6' class='pb-3' lg>
         <b-card
           class='text-center'
           style='height: 100%; min-height: 400px'
-          no-body
         >
-          <b-tabs card>
-            <b-tab title='Fitness Counter' active>
-              <Voice @storeData='storeData' />
-              <Table :table='table' current='Push Up' />
-            </b-tab>
-            <b-tab title='Muscle status'>
-              <MuscleDiagram :muscles='musclesColor' />
-            </b-tab>
-          </b-tabs>
+          <Voice @storeData='storeData' />
+        </b-card>
+      </b-col>
+    </b-row>
+    <b-row class='d-flex justify-content-center align-items-stretch'>
+      <b-col xl='6' lg>
+        <b-card class='text-center' title='Muscle status'>
+          <MuscleDiagram :muscles='musclesColor' />
+        </b-card>
+      </b-col>
+      <b-col xl='6' lg>
+        <b-card class='text-center' style='height:100%' title='Activity'>
+          <Table :table='table' :current='currentPose' />
         </b-card>
       </b-col>
     </b-row>
@@ -235,6 +237,9 @@ export default {
     }
   },
   computed: {
+    currentPose() {
+      return this.$store.state.currentPose
+    },
     musclesColor() {
       // every muscle will change state every 25 calorie lost on that part, calorie = coefficient * activity base calorie
       const muscles = this.muscles

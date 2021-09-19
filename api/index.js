@@ -6,12 +6,14 @@ const app = express()
 const users = require('./routes/users')
 const exercise = require('./routes/exercise')
 const data = require('./routes/data')
+const voice = require('./routes/voice')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(users)
 app.use(exercise)
 app.use(data)
+app.use(voice)
 
 module.exports = app
 

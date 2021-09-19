@@ -44,7 +44,11 @@ export default {
   },
   mounted() {
     this.ctx = this.$refs.canvas.getContext('2d')
-    this.init()
+    try {
+      this.init()
+    } catch (e) {
+    }
+
     // auto increment time counter
     setInterval(() => {
       this.interval++
@@ -99,18 +103,19 @@ export default {
           this.$refs.canvas.width,
           this.$refs.canvas.height
         )
+
+        // Only overwrite missing pixels.
+        this.ctx.globalCompositeOperation = 'destination-atop'
+        this.ctx.drawImage(
+          results.image,
+          0,
+          0,
+          this.$refs.canvas.width,
+          this.$refs.canvas.height
+        )
+
       } catch (e) {
       }
-
-      // Only overwrite missing pixels.
-      this.ctx.globalCompositeOperation = 'destination-atop'
-      this.ctx.drawImage(
-        results.image,
-        0,
-        0,
-        this.$refs.canvas.width,
-        this.$refs.canvas.height
-      )
 
       this.ctx.globalCompositeOperation = 'source-over'
 
@@ -119,28 +124,33 @@ export default {
         for (let i = 0; i < 11; i++) {
           results.poseLandmarks[i].visibility = 0.01
         }
-        if (this.poseTextStyle.includes('text-success')) {
-          switch (this.currentPose) {
-            case 'Push Up':
-              this.pushUpCounter(results.poseLandmarks)
-              break
-            case 'Squat':
-              this.squatCounter(results.poseLandmarks)
-              break
-            case 'Jumping Jack':
-              this.jumpingJackCounter(results.poseLandmarks)
-              break
-            case 'Sit Up':
-              this.sitUpCounter(results.poseLandmarks)
-              break
-            case 'High Knee':
-              this.highKneeCounter(results.poseLandmarks)
-              break
-            default: {
-              break
+        try {
+          if (this.poseTextStyle.includes('text-success')) {
+            switch (this.currentPose) {
+              case 'Push Up':
+                this.pushUpCounter(results.poseLandmarks)
+                break
+              case 'Squat':
+                this.squatCounter(results.poseLandmarks)
+                break
+              case 'Jumping Jack':
+                this.jumpingJackCounter(results.poseLandmarks)
+                break
+              case 'Sit Up':
+                this.sitUpCounter(results.poseLandmarks)
+                break
+              case 'High Knee':
+                this.highKneeCounter(results.poseLandmarks)
+                break
+              default: {
+                break
+              }
             }
           }
+        } catch (e) {
+
         }
+
       }
 
       drawConnectors(this.ctx, results.poseLandmarks, POSE_CONNECTIONS, {
