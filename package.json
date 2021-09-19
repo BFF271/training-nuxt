@@ -9,7 +9,7 @@
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js",
-    "heroku-postbuild": "npm run build & npm start"
+    "heroku-postbuild": "npm run build && npm start"
   },
   "dependencies": {
     "@google-cloud/speech": "^4.8.1",
