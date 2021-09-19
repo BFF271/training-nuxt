@@ -15,7 +15,6 @@ router.get('/user/get', (req, res) => {
 
 router.post('/user/login', async (req, res) => {
   try {
-    console.log(req.body)
     const password = createHash('sha256')
       .update(req.body.password)
       .digest('hex')

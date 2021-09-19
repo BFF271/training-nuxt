@@ -87,15 +87,15 @@ export default {
                 } else if (message.includes('has been stopped')) {
                   // if user stop the current pose activity
                   this.$store.commit('changeStyle', 'text-warning')
-                }
-
-              } catch (err) {
-                if (trace.find(element => element.type === 'end')) {
-                  // if user end the voice flow, submit the data if user is logged in
+                }else if(message.toLowerCase().includes('good bye')){
                   if (this.$auth.loggedIn) {
                     this.$emit('storeData', true)
                   }
+
                 }
+
+              } catch (err) {
+
               }
             }
           )
