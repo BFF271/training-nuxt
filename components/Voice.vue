@@ -87,7 +87,7 @@ export default {
                 } else if (message.includes('has been stopped')) {
                   // if user stop the current pose activity
                   this.$store.commit('changeStyle', 'text-warning')
-                }else if(message.toLowerCase().includes('good bye')){
+                } else if (message.toLowerCase().includes('good bye')) {
                   if (this.$auth.loggedIn) {
                     this.$emit('storeData', true)
                   }
@@ -130,14 +130,17 @@ export default {
           case text.toLowerCase().includes('squat'):
             await interact({ type: 'text', payload: 'squat' })
             break
-          case text.toLowerCase().includes('end'):
-            await interact({ type: 'text', payload: 'end' })
+          case text.toLowerCase().includes('terminate'):
+            await interact({ type: 'text', payload: 'terminate' })
             break
           case text.toLowerCase().includes('change'):
             await interact({ type: 'text', payload: 'change' })
             break
           case text.toLowerCase().includes('start'):
             await interact({ type: 'text', payload: 'start' })
+            break
+          case text.toLowerCase().includes('stop'):
+            await interact({ type: 'text', payload: 'stop' })
             break
           default:
             await interact({ type: 'text', payload: 'Unidentified text' })
