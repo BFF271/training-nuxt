@@ -132,9 +132,12 @@ export default {
   methods: {
     getMuscle() {
       this.$axios
-        .post('/api/body/get', {
-          userId: this.$auth.user.id
+        .get('/api/body/get', {
+          params: {
+            userId: this.$auth.user.id
+          }
         }).then((res) => {
+        console.log(res)
         if (res.data !== null) {
           this.muscles = res.data
         }

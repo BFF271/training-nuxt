@@ -34,17 +34,17 @@
             <span class='text-info'>300 - 600</span> Kcal!
           </p>
           <b-progress
-            :value='totalCalorie.toFixed(2)'
+            :value='parseFloat(totalCalorie).toFixed(2)'
             max='600'
             height='3rem'
             :variant='calorieStatus[0]'
             show-progress
             animated
           >
-            <b-progress-bar :value='totalCalorie'>
+            <b-progress-bar :value='parseFloat(totalCalorie).toFixed(2)'>
               <span
               ><strong
-              >{{ totalCalorie.toFixed(2) }} KCal / 600 KCal ({{
+              >{{ parseFloat(totalCalorie).toFixed(2) }} KCal / 600 KCal ({{
                   calorieStatus[1]
                 }})</strong
               ></span
@@ -63,7 +63,7 @@
         >
           <b-tabs card>
             <b-tab title='Fitness Counter' active>
-              <b-button @click='storeData'>Save</b-button>
+              <Voice @storeData='storeData' />
               <Table :table='table' current='Push Up' />
             </b-tab>
             <b-tab title='Muscle status'>
@@ -279,7 +279,7 @@ export default {
           if (res.data.activities !== null) {
             this.table.activities = res.data.activities
             for (let i = 0; i < res.data.activities.length; i++) {
-              this.totalCalorie += parseFloat(res.data.activities[i].Calories)
+              this.totalCalorie = parseFloat(res.data.activities[i].Calories) + parseFloat(this.totalCalorie)
             }
           }
           this.muscles = res.data.muscles
@@ -297,22 +297,30 @@ export default {
       // if activity match, count increase
       currentActivity.Count++
       currentActivity.Calories = (parseFloat(currentActivity.base) * parseFloat(activity[1]) + parseFloat(currentActivity.Calories)).toFixed(2)
-      this.totalCalorie += currentActivity.Calories
+      this.totalCalorie = parseFloat(currentActivity.Calories) + parseFloat(this.totalCalorie)
       const muscleAffected = currentActivity.muscle
       for (let j = 0; j < muscleAffected.length; j++) {
         // add the calorie for the muscle part to data.muscle.calorie
         this.muscles[muscleAffected[j][0]].calorie += muscleAffected[j][1] * currentActivity.base
       }
     },
-    storeData() {
-      // send data to database after training
-      this.$axios.post('/api/exercise/upload', {
-        userId: this.$auth.user.id,
-        muscles: this.muscles,
-        activities: this.table.activities
-      }).then((response) => {
-        this.$swal(response.data)
-      })
+    storeData(status) {
+      // if voice flow has been ended
+      if (status) {
+        // send data to database after training
+        this.$axios.post('/api/exercise/upload', {
+          userId: this.$auth.user.id,
+          muscles: this.muscles,
+          activities: this.table.activities
+        }).then((response) => {
+          this.$swal(response.data).then((response) => {
+            if (response.isConfirmed) {
+              location.href = '/statistics'
+            }
+          })
+        })
+      }
+
     }
   }
 }

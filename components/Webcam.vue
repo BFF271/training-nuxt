@@ -1,6 +1,7 @@
 <template>
   <b-card id='videoCard' class='text-center mb-3'>
-    <p class='text-info title-text'>{{ currentPose }}</p>
+    <p v-if='currentPose!==null' class='title-text' :class='poseTextStyle'>{{ currentPose }}</p>
+    <p v-else class='title-text text-info'>Choose an activity</p>
     <video
       ref='video'
       autoplay
@@ -26,12 +27,17 @@ export default {
       canvas: null,
       // indicate the frequency of one act
       interval: 0,
-      currentPose: 'High Knee',
       // stage will be 1 and 2, every loop cause one emit to table
       currentStage: null
     }
   },
   computed: {
+    currentPose() {
+      return this.$store.state.currentPose
+    },
+    poseTextStyle() {
+      return this.$store.state.poseTextStyle
+    },
     inputVideo() {
       return this.$refs.video
     }
@@ -46,6 +52,7 @@ export default {
   },
   methods: {
     init() {
+      // activate webcam for pose estimation
       const pose = new Pose({
         locateFile: (file) => {
           return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
@@ -59,6 +66,7 @@ export default {
         minDetectionConfidence: 0.5,
         minTrackingConfidence: 0.5
       })
+      // loop onResult to estimate frame by frame
       pose.onResults(this.onResults)
 
       const camera = new Camera(this.inputVideo, {
@@ -111,24 +119,26 @@ export default {
         for (let i = 0; i < 11; i++) {
           results.poseLandmarks[i].visibility = 0.01
         }
-        switch (this.currentPose) {
-          case 'Push Up':
-            this.pushUpCounter(results.poseLandmarks)
-            break
-          case 'Squat':
-            this.squatCounter(results.poseLandmarks)
-            break
-          case 'Jumping Jack':
-            this.jumpingJackCounter(results.poseLandmarks)
-            break
-          case 'Sit Up':
-            this.sitUpCounter(results.poseLandmarks)
-            break
-          case 'High Knee':
-            this.highKneeCounter(results.poseLandmarks)
-            break
-          default: {
-            break
+        if (this.poseTextStyle.includes('text-success')) {
+          switch (this.currentPose) {
+            case 'Push Up':
+              this.pushUpCounter(results.poseLandmarks)
+              break
+            case 'Squat':
+              this.squatCounter(results.poseLandmarks)
+              break
+            case 'Jumping Jack':
+              this.jumpingJackCounter(results.poseLandmarks)
+              break
+            case 'Sit Up':
+              this.sitUpCounter(results.poseLandmarks)
+              break
+            case 'High Knee':
+              this.highKneeCounter(results.poseLandmarks)
+              break
+            default: {
+              break
+            }
           }
         }
       }
@@ -145,7 +155,8 @@ export default {
       })
 
       this.ctx.restore()
-    },
+    }
+    ,
     addExerciseCount(name) {
       this.$emit('updateExerciseCount', [
         name,
@@ -153,7 +164,8 @@ export default {
       ])
       // every time an count act done, reset interval/every second pass for time act, interval recount
       this.interval = 0
-    },
+    }
+    ,
     calculateFrequency(interval) {
       // More than 5 second idle
       // final calorie of a single act(count type exercise) = coefficient * base calorie
@@ -165,14 +177,16 @@ export default {
       } else {
         return 1.6
       }
-    },
+    }
+    ,
     calculateAngle(a, b, c) {
       // find angle b
       let angle =
         Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x)
       angle = Math.abs((angle * 180.0) / Math.PI)
       return angle > 180 ? 360 - angle : angle
-    },
+    }
+    ,
     pushUpCounter(poses) {
       let a, b, c, d, e, f
       let upperBodyReady = false
@@ -222,7 +236,8 @@ export default {
           this.currentStage = 2
         }
       }
-    },
+    }
+    ,
     squatCounter(poses) {
       let a, b, c, d
       let canProcess = false
@@ -261,7 +276,8 @@ export default {
           this.currentStage = 2
         }
       }
-    },
+    }
+    ,
     jumpingJackCounter(poses) {
       let a, b, c, d, e, f
       let upperBodyReady = false
@@ -311,7 +327,8 @@ export default {
           this.currentStage = 2
         }
       }
-    },
+    }
+    ,
     highKneeCounter(poses) {
       let a, b, c, d, e, f, g, h
       const LIFT = 115
@@ -365,7 +382,8 @@ export default {
           this.currentStage = 2
         }
       }
-    },
+    }
+    ,
     sitUpCounter(poses) {
       let a, b, c, d
       let canProcess = false
@@ -405,7 +423,8 @@ export default {
           this.currentStage = 2
         }
       }
-    },
+    }
+    ,
     checkVisibility(...poses) {
       for (const posesKey in poses) {
         if (posesKey.visibility < 0.4) {

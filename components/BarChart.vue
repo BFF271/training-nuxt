@@ -54,7 +54,6 @@ export default {
   },
   mounted() {
     this.$axios.post('/api/data/exercise/get', { userId: this.$auth.user.id }).then((data) => {
-      console.log(data)
       this.chartData.datasets[0].data = data.data
       this.renderChart(this.chartData, this.options)
     })

@@ -3,13 +3,13 @@ const { Router } = require('express')
 const router = Router()
 const db = require('../db')
 
-router.post('/body/get', async (req, res) => {
+router.get('/body/get', async (req, res) => {
   // see if there is exercise in recent 2 days as muscle need time to recover
   let day = new Date()
   day.setDate(day.getDate() - 3)
   const bodyStatus = await db.query(
     'SELECT "date", muscles FROM exercise WHERE userid = $1 AND "date" >= $2',
-    [req.body.userId, day]
+    [req.query.userId, day]
   )
   if (bodyStatus.rowCount === 0) {
     // if no recent body status
@@ -38,6 +38,15 @@ router.post('/body/get', async (req, res) => {
         delete status.muscles[key].calorie
         status.muscles[key].style.fill =
           level - dayPass < 0 ? 0 : level - dayPass
+      })
+    } else {
+      // if today
+      Object.keys(status.muscles).forEach((key) => {
+        // transform color code to level
+        const level = trainStatus.indexOf(status.muscles[key].style.fill)
+        // lower level and replace
+        delete status.muscles[key].calorie
+        status.muscles[key].style.fill = level
       })
     }
     // check how long has passed from last train as muscle recover, three day will be enough for all muscle to recover
