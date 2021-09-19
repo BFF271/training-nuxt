@@ -42,7 +42,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://indoor-trainer.herokuapp.com/'
+    baseURL: 'http://localhost:4000'
   },
 
   publicRuntimeConfig: {
