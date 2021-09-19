@@ -289,43 +289,39 @@ export default {
     }
     ,
     jumpingJackCounter(poses) {
-      let a, b, c, d, e, f, g
+      let a, b, c, d, e, f, g, h
       let upperBodyReady = false
       let lowerBodyReady = false
       // Check Upper body
-      if (this.checkVisibility([poses[11], poses[13], poses[23]])) {
+      if (this.checkVisibility([poses[11], poses[13], poses[23],poses[12], poses[14], poses[24]])) {
         // check whether these three joint on screen
         a = 11
         b = 13
         c = 23
-        upperBodyReady = true
-      } else if (this.checkVisibility([poses[12], poses[14], poses[24]])) {
-        a = 12
-        b = 14
-        c = 24
+        d = 12
+        e = 14
+        f = 24
         upperBodyReady = true
       }
       // Check lower body
-      if (this.checkVisibility([poses[24], poses[23], poses[27]], poses[28])) {
+      if (this.checkVisibility([poses[23], poses[24], poses[25]], poses[26])) {
         // check whether these three joint on screen
-        d = 24
-        e = 23
-        f = 27
-        g = 28
+        g = 25
+        h = 26
         lowerBodyReady = true
       }
       // the stage will only be calculated if at least one side of lower body and upper body in camera
-      if (upperBodyReady === true && lowerBodyReady === true) {
-        const midPoint = { x: (d.x + e.x) / 2, y: (d.y + e.y) / 2, z: (d.z + e.z) / 2 }
+      if (upperBodyReady && lowerBodyReady ) {
+        const midPoint = { x: (poses[c].x + poses[f].x) / 2, y: (poses[c].y + poses[f].y) / 2, z: (poses[c].z + poses[f].z) / 2 }
         if (
-          this.calculateAngle(poses[a], poses[b], poses[c]) > 160 &&
-          this.calculateAngle(poses[f], poses[midPoint], poses[g]) > 30
+          this.calculateAngle(poses[a], poses[b], poses[c]) > 130 && this.calculateAngle(poses[d], poses[e], poses[f]) > 130 &&
+          this.calculateAngle(poses[g], midPoint, poses[h]) > 35
         ) {
           this.currentStage = 1
         }
         if (
-          this.calculateAngle(poses[a], poses[b], poses[c]) < 60 &&
-          this.calculateAngle(poses[f], poses[midPoint], poses[g]) < 20
+          this.calculateAngle(poses[a], poses[b], poses[c]) < 80 && this.calculateAngle(poses[d], poses[e], poses[f]) < 80 &&
+          this.calculateAngle(poses[g], midPoint, poses[g]) < 35
         ) {
           if (this.currentStage === 1) {
             // if it switch from previous stage, its count increase
@@ -394,8 +390,8 @@ export default {
     sitUpCounter(poses) {
       let a, b, c, d
       let canProcess = false
-      const LAY = 100
-      const CRUNCH = 70
+      const LAY = 110
+      const CRUNCH = 60
       const KNEE_BENT = 120
       if (this.checkVisibility([poses[11], poses[23], poses[25], poses[27]])) {
         a = 11
