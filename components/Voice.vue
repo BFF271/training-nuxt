@@ -33,8 +33,8 @@
 export default {
   data() {
     return {
-      API_KEY: 'VF.61459dd3076dfd001b7ffb59.w6C3plIioGk824alpKwrJFySABAWn9oKKWYaReyW7M',
-      VERSION_ID: '61458f8bd91e7f000678fb76',
+      API_KEY: '',
+      VERSION_ID: '',
       exerciseArray: ['Push Up', 'Squat', 'Jumping Jack', 'High Knee', 'Sit Up']
     }
   },
@@ -47,8 +47,8 @@ export default {
     },
     init() {
       const texts = document.getElementById('transcript')
-      const API_KEY = 'VF.61459dd3076dfd001b7ffb59.w6C3plIioGk824alpKwrJFySABAWn9oKKWYaReyW7M'
-      const VERSION_ID = '61458f8bd91e7f000678fb76'
+      const API_KEY = this.API_KEY
+      const VERSION_ID = this.VERSION_ID
       const username = this.$auth.loggedIn ? this.$auth.user.username : 'Guest'
 
       // activate voice flow

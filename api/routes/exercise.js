@@ -25,7 +25,7 @@ router.get('/body/get', async (req, res) => {
       // Over Train(Yello)
       '#f0ad4e',
       // Harmful Train(Red)
-      '#B22222',
+      '#B22222'
     ]
     let status = bodyStatus.rows[bodyStatus.rowCount - 1]
     const dayPass = today.getDate() - status.date.getDate()
@@ -58,7 +58,7 @@ router.post('/exercise/get', async (req, res) => {
   let returnObj = {
     exist: false,
     muscles: null,
-    activities: null,
+    activities: null
   }
   // see if there is any activity today
   const result = await db.query(
@@ -87,7 +87,7 @@ router.post('/exercise/get', async (req, res) => {
         // Over Train(Yello)
         '#f0ad4e',
         // Harmful Train(Red)
-        '#B22222',
+        '#B22222'
       ]
       const today = new Date()
       const dayPass =
@@ -128,7 +128,7 @@ router.post('/exercise/upload', async (req, res) => {
         JSON.stringify(req.body.muscles),
         JSON.stringify(req.body.activities),
         req.body.userId,
-        new Date(),
+        new Date()
       ]
     )
     if (rowCount > 0) {
@@ -143,7 +143,7 @@ router.post('/exercise/upload', async (req, res) => {
         req.body.userId,
         JSON.stringify(req.body.muscles),
         JSON.stringify(req.body.activities),
-        new Date(),
+        new Date()
       ]
     )
     if (rowCount > 0) {

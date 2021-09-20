@@ -1,14 +1,15 @@
 const { Pool } = require('pg')
 
 const pool = new Pool({
-  user: 'love',
-  host: 'free-tier.gcp-us-central1.cockroachlabs.cloud',
-  database: 'indoor-trainer-3524.defaultdb',
+  // your options in postgreSQL
+  user: '',
+  host: '',
+  database: '',
   port: 26257,
-  password:"lyqPpLFVaVflW1Mj",
+  password: '',
   ssl: true
 })
 
 module.exports = {
-  query: (text, params) => pool.query(text, params),
+  query: (text, params) => pool.query(text, params)
 }

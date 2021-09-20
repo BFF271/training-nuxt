@@ -137,7 +137,6 @@ export default {
             userId: this.$auth.user.id
           }
         }).then((res) => {
-        console.log(res)
         if (res.data !== null && res.data !== '') {
           this.muscles = res.data
         }
