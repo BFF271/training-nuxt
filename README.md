@@ -2,20 +2,20 @@
 
 ## Project Showcase
 
-![Index](image/Index.png)
+![Index](image/Index.PNG)
 - User authentication
   1. Login
-    ![Login](image/singIn.png)
+    ![Login](image/singIn.PNG)
   2. Register
-    ![Register](image/signUp.png)
+    ![Register](image/signUp.PNG)
 - Pose Estimation
   1. Page
-    ![Page](image/exercise.png)
+    ![Page](image/exercise.PNG)
   2. Activity estimation
-    ![Pose](image/pose.png)
+    ![Pose](image/pose.PNG)
 - Statistics
-  ![Stats](image/stats.png)
-  ![Muscle](image/muscle.png)
+  ![Stats](image/stats.PNG)
+  ![Muscle](image/muscle.PNG)
 
 ## Before Start
 
