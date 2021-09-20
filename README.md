@@ -2,6 +2,7 @@
 
 ## Project Showcase
 
+![Index](image/Index.png)
 - User authentication
   1. Login
     ![Login](image/singIn.png)
@@ -14,6 +15,7 @@
     ![Pose](image/pose.png)
 - Statistics
   ![Stats](image/stats.png)
+  ![Muscle](/image/muscle.png)
 
 ## Before Start
 
