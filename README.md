@@ -22,7 +22,7 @@
 Please prepare for VoiceFlow API as well as postgreSQL to enable full functionality of this application
 - Insert VoiceFlow API_KEY and VERSION_ID at /components/Voice.vue data
 - Insert postgreSQL connection string at /api/db.js, the database structure is shown below
-  ![Database Structure](image/database.png)
+  ![Database Structure](image/database.PNG)
 
 ## Build Setup
 
