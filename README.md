@@ -15,7 +15,7 @@
     ![Pose](image/pose.png)
 - Statistics
   ![Stats](image/stats.png)
-  ![Muscle](/image/muscle.png)
+  ![Muscle](image/muscle.png)
 
 ## Before Start
 
